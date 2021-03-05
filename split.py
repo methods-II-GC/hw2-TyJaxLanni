@@ -40,12 +40,12 @@ def read_tags(path: str) -> Iterator[List[List[str]]]:
 #---------------------------------------------------------
 
 #-----------------------------------------------------------
-def write_tags(data, write_path):
-	with open(write_path, "w") as file:
+def write_tags(data: List[List[List[str]]], write_path):
+	with open(write_path, "w", encoding="utf-8") as file:
 		for sentence in data:
 			for tok in sentence:
-				word_info = " "
-				word_info.join(tok)
+				word_info = " ".join(tok)
+				#word_info.join(tok)
 
 				file.write(word_info)
 				file.write("\n")
@@ -73,9 +73,9 @@ def split_data(data, seed: int):
 	dev_test = int(data_size*.1)
 
 	#train: 80% of the data, dev/test: 20% of data
-	train = data[:train_size]
-	dev = data[train_size: (train_size+dev_test)]
-	test = data[(train_size+dev_test):]
+	train = data[:train_size]	#data[0: .8 size of data]
+	dev = data[train_size: (train_size+dev_test)]	#data[.8 size of data: .9 size of data]
+	test = data[(train_size+dev_test):]		#data[.9 size of data: end of data]
 
 	return (train, dev, test)
 

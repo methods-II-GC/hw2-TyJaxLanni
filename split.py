@@ -40,7 +40,7 @@ def read_tags(path: str) -> Iterator[List[List[str]]]:
 #---------------------------------------------------------
 
 #-----------------------------------------------------------
-def write_tags(data: List[List[List[str]]], write_path):
+def write_tags(data: List[List[List[str]]], write_path: str) -> None:
 	with open(write_path, "w", encoding="utf-8") as file:
 		for sentence in data:
 			for tok in sentence:
@@ -59,7 +59,7 @@ def write_tags(data: List[List[List[str]]], write_path):
 #---------------------------------------------------------
 
 #-----------------------------------------------------------
-def split_data(data, seed: int):
+def split_data(data: Iterator[List[List[str]]], seed: int) -> List[List[List[List[str]]]]:
 
 	#creating pseudorandom environment
 	random.seed(seed)
@@ -70,12 +70,12 @@ def split_data(data, seed: int):
 	#creating training data size
 	data_size = len(data)
 	train_size = int(data_size*.8)
-	dev_test = int(data_size*.1)
+	dev_test_size = int(data_size*.1)
 
 	#train: 80% of the data, dev/test: 20% of data
 	train = data[:train_size]	#data[0: .8 size of data]
-	dev = data[train_size: (train_size+dev_test)]	#data[.8 size of data: .9 size of data]
-	test = data[(train_size+dev_test):]		#data[.9 size of data: end of data]
+	dev = data[train_size: (train_size+dev_test_size)]	#data[.8 size of data: .9 size of data]
+	test = data[(train_size+dev_test_size):]		#data[.9 size of data: end of data]
 
 	return (train, dev, test)
 

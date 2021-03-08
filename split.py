@@ -49,6 +49,7 @@ def write_tags(data: List[List[List[str]]], write_path: str) -> None:
 
 				file.write(word_info)
 				file.write("\n")
+			file.write("\n")
 
 
 
